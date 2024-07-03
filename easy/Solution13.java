@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution13 {
   public int romanToInt(String s) {
     int sLength = s.length();
@@ -68,14 +71,40 @@ class Solution13 {
     return sum;
   }
 
+  // solução CHATGPT (romanToInt2)
+  public int romanToInt2(String s) {
+    Map<Character, Integer> romanValues = new HashMap<>();
+    romanValues.put('I', 1);
+    romanValues.put('V', 5);
+    romanValues.put('X', 10);
+    romanValues.put('L', 50);
+    romanValues.put('C', 100);
+    romanValues.put('D', 500);
+    romanValues.put('M', 1000);
+
+    int sLength = s.length();
+    int sum = 0;
+
+    for (int i = 0; i < sLength; i++) {
+      int value = romanValues.get(s.charAt(i));
+      if (i + 1 < sLength && value < romanValues.get(s.charAt(i + 1))) {
+        sum -= value;
+      } else {
+        sum += value;
+      }
+    }
+
+    return sum;
+  }
+
   public static void main(String[] args) {
     Solution13 obj = new Solution13();
 
-    System.out.println(obj.romanToInt("III"));
-    System.out.println(obj.romanToInt("IV"));
-    System.out.println(obj.romanToInt("IX"));
-    System.out.println(obj.romanToInt("LVIII"));
-    System.out.println(obj.romanToInt("MCMXCIV"));
+    System.out.println(obj.romanToInt2("III"));
+    System.out.println(obj.romanToInt2("IV"));
+    System.out.println(obj.romanToInt2("IX"));
+    System.out.println(obj.romanToInt2("LVIII"));
+    System.out.println(obj.romanToInt2("MCMXCIV"));
   }
 }
 
